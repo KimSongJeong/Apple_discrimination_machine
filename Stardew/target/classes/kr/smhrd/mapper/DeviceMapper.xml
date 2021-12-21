@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mapper.DeviceMapper">
+    
+    <insert id="registerDevice"  parameterType="kr.smhrd.mapper.DeviceVO" >
+        insert into machines(m_id,m_name,mb_id,m_installation,stt,deep_id,fruit_kind) 
+        values(#{m_id},#{m_name},#{mb_id},#{m_installation}, 0,#{deep_id},#{fruit_kind})
+    </insert>
+    
+    <select id="deviceList" resultType="kr.smhrd.mapper.DeviceVO">
+        select * from machines where mb_id = #{mb_id}
+    </select>
+    
+    <select id ="selectDevice" resultType="kr.smhrd.mapper.DeviceVO">
+        select * from machines where m_id = #{m_id}
+    </select>
+    
+    <update id="updateDevice" parameterType="kr.smhrd.mapper.DeviceVO">
+        update machines
+        set m_name =#{m_name}
+        where m_id = #{m_id}
+        
+    </update>
+    
+    <select id="test11" parameterType="kr.smhrd.mapper.DeviceVO" resultType="kr.smhrd.mapper.DeviceVO">
+        select * from machines where mb_id =#{mb_id} and m_id =1
+    </select>
+    
+    <select id="stt_con" parameterType="kr.smhrd.mapper.DeviceVO">
+        update machines
+        set stt =#{stt}
+        where m_id = #{m_id}
+    </select>
+    
+    <delete id="deviceDelete">
+        delete from machines where m_id = #{m_id}
+    </delete>
+    
+</mapper>

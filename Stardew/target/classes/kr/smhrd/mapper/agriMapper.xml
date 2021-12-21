@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mapper.agriMapper">
+    
+    <select id="agriList" resultType="kr.smhrd.mapper.agriDataVO">
+        select * from agri_data order by cl_date desc
+    </select>
+    
+    <select id="agriResult" resultType="kr.smhrd.mapper.agriDataVO">
+        select deep_seq, count(*) as cnt from agri_data group by deep_seq having cnt > 1
+    </select>
+    
+    <!-- <select id="agriDay" resultType="kr.smhrd.mapper.agriDataVO">
+        select deep_seq, count(*) as cnt from agri_data group by deep_seq having cnt > 1
+    </select> -->
+    <!-- 쿼리문 바꿔야함yo -->
+</mapper>

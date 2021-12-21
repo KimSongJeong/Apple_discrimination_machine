@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mapper.classificationMapper">
+    <select id="appleList" resultType="kr.smhrd.mapper.classificationVO">
+        select * from classifications where mb_id = #{mb_id} order by cl_date desc limit 20
+    </select>
+    
+    <select id="appleListKind" resultType="kr.smhrd.mapper.classificationVO" parameterType="kr.smhrd.mapper.classificationVO">
+        select cl_result, count(*) as cnt from classifications where mb_id = #{mb_id} and cl_date between #{yesterday} and #{chkDate}  group by cl_result order by cl_result 
+    </select>
+    
+    <select id="appleListSummary" resultType="kr.smhrd.mapper.classificationVO" parameterType="kr.smhrd.mapper.classificationVO">
+        select m_id, fruit_kind, DATE(cl_date) as cl_date from (select m_id, fruit_kind, cl_date, row_number() over(partition by m_id order by cl_date desc) as recent_date from classifications where mb_id = #{mb_id}) s where recent_date = 1 
+    </select>
+    
+    <select id="applelistMachine" resultType="kr.smhrd.mapper.classificationVO" parameterType="kr.smhrd.mapper.classificationVO">
+        select m_id,fruit_kind,cl_result, count(*) as cnt from classifications where mb_id = #{mb_id} and cl_date between #{yesterday} and #{chkDate}  group by m_id, fruit_kind, cl_result  
+    </select>
+    
+    <select id="daterange" resultType="kr.smhrd.mapper.classificationVO" parameterType="kr.smhrd.mapper.classificationVO">
+        select cl_result, count(*) as cnt from classifications where mb_id = #{mb_id} and cl_date between #{startDay} and #{endDay}  group by cl_result order by cl_result
+    </select>
+    
+    <select id="livedata" resultType="kr.smhrd.mapper.chartVO" parameterType="kr.smhrd.mapper.chartVO">
+        select * from chart order by kind
+    </select>
+</mapper>
